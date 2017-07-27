@@ -1,3 +1,3 @@
-import Alert from "./Alert.vue"
+import BackTop from "./BackTop.vue"
 
-export default Alert
+export default BackTop

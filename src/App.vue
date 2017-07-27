@@ -4,7 +4,7 @@
         <v-loading></v-loading>
         <!--head-->
         <header class="header">
-            <v-menu :session="session"></v-menu>
+            <v-top-menu :logo="logo" :help="help" :session="session"></v-top-menu>
         </header>
         <router-view class="main"></router-view>
         <!--foot-->
@@ -25,20 +25,23 @@
 </template>
 
 <script>
-    import './asset/semantic-ui/semantic.min.js'
-    import './asset/semantic-ui/calendar/calendar.min.js'
+    import '@dreampie/semantic-ui/semantic.min.js'
+    import 'semantic-ui-calendar/dist/calendar.min.js'
+    import logoImage from  './asset/logo.png'
 
     import {mapGetters, mapActions} from 'vuex'
-    import Alert from './component/Alert.vue'
-    import BackTop from './component/BackTop.vue'
-    import Loading from './component/Loding.vue'
-    import Menu from './component/Menu.vue'
+    import Alert from './component/alert.js'
+    import Loading from './component/loading.js'
+    import BackTop from './component/back-top.js'
+    import TopMenu from './component/top-menu.js'
 
     export default {
         name: 'app',
         data () {
             return {
-                belong: {name: '三快在线科技有限公司', url: 'https://www.meituan.com'},
+                logo: {url: logoImage},
+                help: {url: 'https://www.vuejs.com'},
+                belong: {name: 'Vue Components', url: 'https://www.vuejs.com'},
                 baseOn: {name: 'Vuejs', url: 'https://github.com/vuejs'},
                 poweredBy: {name: 'Dreampie', url: 'https://github.com/Dreampie'}
             }
@@ -47,7 +50,7 @@
             'v-alert': Alert,
             'v-back-top': BackTop,
             'v-loading': Loading,
-            'v-menu': Menu
+            'v-top-menu': TopMenu
         },
         computed: {
             ...mapGetters([
@@ -60,8 +63,8 @@
             ])
         },
         mounted () {
-            const ssoCount = window.localStorage.getItem("sso")
-            if (!ssoCount || ssoCount == 0) {
+            const loginDisabled = window.localStorage.getItem("loginDisabled")
+            if (!loginDisabled || loginDisabled == 0) {
                 this.getSession({})
             }
         }
@@ -69,8 +72,8 @@
 </script>
 
 <style lang="stylus">
-    @import './asset/semantic-ui/semantic.min.css';
-    @import './asset/semantic-ui/calendar/calendar.min.css';
+    @import '~@dreampie/semantic-ui/semantic.min.css';
+    @import '~semantic-ui-calendar/dist/calendar.min.css';
 
     body, html {
         z-index: 0;

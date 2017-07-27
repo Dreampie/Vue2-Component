@@ -6,7 +6,7 @@ const PATTERN_DOMAIN = /((\.[^\\.:/]+\.[^\\.:/]+)|localhost)(:\d+)?$/i
 
 export const Domain = {
     getTopDomain: (rootUrl) => {
-        return rootUrl.match(PATTERN_DOMAIN)[1]
+        return rootUrl ? rootUrl.match(PATTERN_DOMAIN)[1] : rootUrl
     }
 }
 

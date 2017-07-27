@@ -30,7 +30,7 @@
 
 <script>
     import {mapGetters, mapActions} from 'vuex'
-    import {Domain} from './util.js'
+    import {Domain} from '../util.js'
 
     export default {
         name: 'v-top-menu',
@@ -44,8 +44,8 @@
             login(){
                 let rootUrl= window.localStorage.getItem("rootUrl")
                 this.$cookie.set("SAVED_URL", window.location.href, {domain: Domain.getTopDomain(rootUrl)})
-                window.location.href = window.localStorage.getItem("ssoUrl")
-                window.localStorage.setItem("sso", 0)
+                window.location.href = window.localStorage.getItem("loginUrl")
+                window.localStorage.setItem("loginDisabled", 0)
             },
             logout(){
                 this.deleteSession({

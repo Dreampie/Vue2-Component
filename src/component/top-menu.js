@@ -1,3 +1,3 @@
-import BackTop from "./BackTop.vue"
+import TopMenu from "./TopMenu.vue"
 
-export default BackTop
+export default TopMenu

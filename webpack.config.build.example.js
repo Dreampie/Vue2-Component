@@ -16,8 +16,21 @@ module.exports.output.path = path.resolve(__dirname, './example');
 module.exports.devServer = {
     historyApiFallback: true,
     noInfo: true,
-    // contentBase: './dist',
+    contentBase: './example',
     disableHostCheck: true
+}
+
+module.exports.module.rules[0] = {
+    test: /\.vue$/,
+    loader: 'vue-loader',
+    options: {
+        loaders: {
+            'stylus': ExtractTextPlugin.extract({
+                use: 'css-loader!stylus-loader',
+                fallback: 'vue-style-loader'
+            })
+        }
+    }
 }
 
 module.exports.devtool = '#eval-source-map'

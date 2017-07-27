@@ -1,4 +1,4 @@
-export const TEXT = {
+export const CalendarText = {
     // days: ['日', '一', '二', '三', '四', '五', '六'],
     // months: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
     monthsShort: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
@@ -7,7 +7,7 @@ export const TEXT = {
 }
 
 
-export const FORMATTER = {
+export const CalendarFormatter = {
     dayHeader: (date, settings) => {
         if (!date) return ''
         const year = date.getFullYear()

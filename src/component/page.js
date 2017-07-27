@@ -1,3 +1,3 @@
-import Loading from "./Loading.vue"
+import Page from "./Page.vue"
 
-export default Loading
+export default Page
