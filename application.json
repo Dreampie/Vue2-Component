@@ -1,0 +1,35 @@
+{
+  "port": 10001,
+  "appKey": "com.sankuai.pay.funds.view",
+  "title": "资金调拨",
+  "local": {
+    "root": "http://localhost:10001",
+    "apiRoot": "http://localhost:9001",
+    "ssoUrl": "http://develop.sso.test.sankuai.info/auth?service=http://localhost:9001/sso"
+  },
+  "dev": {
+    "root": "http://view.pay.dev.sankuai.com",
+    "apiRoot": "http://allocate.api.pay.dev.sankuai.com",
+    "ssoUrl": "http://develop.sso.test.sankuai.info/auth?service=http://allocate.api.pay.dev.sankuai.com/sso"
+  },
+  "devTest": {
+    "root": "http://view.test.pay.dev.sankuai.com",
+    "apiRoot": "http://allocate.api.test.pay.dev.sankuai.com",
+    "ssoUrl": "http://develop.sso.test.sankuai.info/auth?service=http://allocate.api.test.pay.dev.sankuai.com/sso"
+  },
+  "test": {
+    "root": "http://view.pay.test.sankuai.com",
+    "apiRoot": "http://allocate.api.pay.test.sankuai.com",
+    "ssoUrl": "http://develop.sso.test.sankuai.info/auth?service=http://allocate.api.pay.test.sankuai.com/sso"
+  },
+  "staging": {
+    "root": "http://view.pay.st.sankuai.com",
+    "apiRoot": "http://allocate.api.pay.st.sankuai.com",
+    "ssoUrl": "http://sso.sankuai.com/auth?service=http://allocate.api.pay.st.sankuai.com/sso"
+  },
+  "prod": {
+    "root": "http://view.funds.sankuai.com",
+    "apiRoot": "http://allocate.api.funds.sankuai.com",
+    "ssoUrl": "http://sso.sankuai.com/auth?service=http://allocate.api.funds.sankuai.com/sso"
+  }
+}
