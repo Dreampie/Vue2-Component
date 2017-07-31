@@ -15,11 +15,11 @@ Vue.http.defaults.baseURL = window.localStorage.getItem("apiRootUrl")
 Vue.http.defaults.timeout = 8000
 
 
-Vue.http.interceptors.request.use(function (config) {
+Vue.http.interceptors.request.use((config) => {
     // Do something before request is sent
     Vue.bus.$emit('v-loading:start', {for: config.method + ":" + config.url})
     return config;
-}, function (error) {
+}, (error) => {
     // Do something with request error
     return Promise.reject(error);
 })
