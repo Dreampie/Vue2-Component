@@ -3,7 +3,8 @@
         <router-link class="ui item" to="/" exact>
             <img :src="logo.url">
         </router-link>
-        <div v-for="menu in menus" :key="menu.id" class="ui dropdown item" tabindex="0" style="margin: 0">
+        <div v-if="!disable" v-for="menu in menus" :key="menu.id" class="ui dropdown item" tabindex="0"
+             style="margin: 0">
             <div class="text">{{menu.title}}</div>
             <i class="dropdown icon"></i>
             <div class="menu transition hidden" tabindex="-1">
@@ -34,7 +35,7 @@
 
     export default {
         name: 'v-top-menu',
-        props: ['logo','session','help'],
+        props: ['logo', 'disable', 'session', 'help'],
         computed: {
             ...mapGetters([
                 'menus'
@@ -42,7 +43,7 @@
         },
         methods: {
             login(){
-                let rootUrl= window.localStorage.getItem("rootUrl")
+                let rootUrl = window.localStorage.getItem("rootUrl")
                 this.$cookie.set("SAVED_URL", window.location.href, {domain: Domain.getTopDomain(rootUrl)})
                 window.location.href = window.localStorage.getItem("loginUrl")
                 window.localStorage.setItem("loginDisabled", 0)
