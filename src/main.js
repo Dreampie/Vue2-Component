@@ -17,6 +17,10 @@ window.localStorage.setItem("loginUrl", properties[process.env.NODE_ENV].loginUr
 
 Vue.use(Vue2Plugin)
 
+console.log(Vue.cookie)
+console.log(Vue.bus)
+console.log(Vue.http.defaults)
+
 new Vue({
     router,
     store,
