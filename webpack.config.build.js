@@ -10,8 +10,12 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, './dist'),
         filename: '[name].js',
-        library:  "[name]",
+        library: "[name]",
         libraryTarget: "umd",
+    },
+    externals: {
+        'vue': 'Vue',
+        'vuex': 'Vuex'
     },
     module: {
         rules: [
