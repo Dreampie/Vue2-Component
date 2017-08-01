@@ -1,6 +1,5 @@
 const path = require('path')
 const webpack = require('webpack')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = {
     entry: {
@@ -10,12 +9,12 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, './dist'),
         filename: '[name].js',
-        library: "[name]",
-        libraryTarget: "umd",
+        library: "Vue2Component",
+        libraryTarget: "commonjs2",
     },
     externals: {
-        'vue': 'Vue',
-        'vuex': 'Vuex'
+        'vue': 'vue',
+        'vuex': 'vuex'
     },
     module: {
         rules: [

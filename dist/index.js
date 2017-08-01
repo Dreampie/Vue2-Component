@@ -1,14 +1,5 @@
-(function webpackUniversalModuleDefinition(root, factory) {
-	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("Vuex"));
-	else if(typeof define === 'function' && define.amd)
-		define(["Vuex"], factory);
-	else if(typeof exports === 'object')
-		exports["index"] = factory(require("Vuex"));
-	else
-		root["index"] = factory(root["Vuex"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_76__) {
-return /******/ (function(modules) { // webpackBootstrap
+module.exports =
+/******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -3191,9 +3182,8 @@ if (false) {
 /* 76 */
 /***/ (function(module, exports) {
 
-module.exports = __WEBPACK_EXTERNAL_MODULE_76__;
+module.exports = require("vuex");
 
 /***/ })
 /******/ ]);
-});
 //# sourceMappingURL=index.js.map

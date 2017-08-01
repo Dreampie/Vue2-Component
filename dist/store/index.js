@@ -1,14 +1,5 @@
-(function webpackUniversalModuleDefinition(root, factory) {
-	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("Vue"));
-	else if(typeof define === 'function' && define.amd)
-		define(["Vue"], factory);
-	else if(typeof exports === 'object')
-		exports["store/index"] = factory(require("Vue"));
-	else
-		root["store/index"] = factory(root["Vue"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_22__) {
-return /******/ (function(modules) { // webpackBootstrap
+module.exports =
+/******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -355,7 +346,7 @@ exports.default = function (obj, key, value) {
 /* 22 */
 /***/ (function(module, exports) {
 
-module.exports = __WEBPACK_EXTERNAL_MODULE_22__;
+module.exports = require("vue");
 
 /***/ }),
 /* 23 */
@@ -721,5 +712,4 @@ $export($export.S + $export.F * !__webpack_require__(0), 'Object', {defineProper
 
 /***/ })
 /******/ ]);
-});
 //# sourceMappingURL=index.js.map
