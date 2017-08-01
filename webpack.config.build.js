@@ -4,24 +4,14 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = {
     entry: {
-        'component/alert': './src/component/alert.js',
-        'component/loading': './src/component/loading.js',
-        'component/page': './src/component/page.js',
-        'component/back-top': './src/component/back-top.js',
-        'component/top-menu': './src/component/top-menu.js',
-        'store/session': './src/store/session.js',
-        'store/menu': './src/store/menu.js',
-        'bus': './src/bus.js',
-        'calendar': './src/calendar.js',
-        'cookie': './src/cookie.js',
-        'filter': './src/filter.js',
-        'http': './src/http.js',
-        'util': './src/util.js',
+        'index': './src/component/index.js',
+        'store/index': './src/store/index.js',
     },
     output: {
         path: path.resolve(__dirname, './dist'),
-        // publicPath: '/dist/',
-        filename: '[name].js'
+        filename: '[name].js',
+        library:  "[name]",
+        libraryTarget: "umd",
     },
     module: {
         rules: [
@@ -67,5 +57,5 @@ module.exports = {
             'vue$': 'vue/dist/vue.common.js',
         }
     },
-    devtool: '#eval-source-map'
+    devtool: '#source-map'
 }

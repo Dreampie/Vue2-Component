@@ -16,8 +16,8 @@
 </template>
 
 <script>
-    import Page from '../component/page.js'
-    import {CalendarText, CalendarFormatter} from '../calendar.js'
+    import {Page} from '../component/index'
+    import {CalendarSetting} from '@dreampie/vue2-common'
 
     export default {
         name: 'index-view',
@@ -37,8 +37,8 @@
                     type: 'date',
                     ampm: false,
                     initialDate: new Date(),
-                    text: CalendarText,
-                    formatter: CalendarFormatter,
+                    text: CalendarSetting.Text,
+                    formatter: CalendarSetting.Formatter,
                     onChange: (date, text) => {
                         console.log(date)
                         return true

@@ -1,10 +1,16 @@
-# Vue2-Components
+# Vue2-Component
 
-> A Vue2 components
+> A Vue2 Component
 
 ## Build Setup
 
 ``` bash
-npm publish
+npm run build
+```
+
+## Run Example
+
+``` bash
+npm run example
 
 ```

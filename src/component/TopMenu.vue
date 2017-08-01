@@ -31,7 +31,7 @@
 
 <script>
     import {mapGetters, mapActions} from 'vuex'
-    import {Domain} from '../util.js'
+    import {DomainSolver} from '@dreampie/vue2-common'
 
     export default {
         name: 'v-top-menu',
@@ -44,7 +44,7 @@
         methods: {
             login(){
                 let rootUrl = window.localStorage.getItem("rootUrl")
-                this.$cookie.set("SAVED_URL", window.location.href, {domain: Domain.getTopDomain(rootUrl)})
+                this.$cookie.set("SAVED_URL", window.location.href, {domain: DomainSolver.getTopDomain(rootUrl)})
                 window.location.href = window.localStorage.getItem("loginUrl")
                 window.localStorage.setItem("loginDisabled", 0)
             },

@@ -1,34 +1,34 @@
 {
-  "name": "@dreampie/vue2-components",
-  "version": "0.0.10",
-  "title": "Vue2 Components",
-  "description": "A Vue2 Components",
-  "homepage": "https://github.com/Dreampie/Vue2-Components",
+  "name": "@dreampie/vue2-component",
+  "version": "0.0.3",
+  "title": "Vue2 Component",
+  "description": "A Vue2 Component",
+  "homepage": "https://github.com/Dreampie/Vue2-Component",
   "author": "Dreampie <Dreampie@outlook.com>",
   "license": "MIT",
+  "main": "dist/index.js",
   "scripts": {
-    "example": "webpack --progress --hide-modules --config  webpack.config.build.example.js && cross-env NODE_ENV=example webpack-dev-server --config  webpack.config.build.example.js --open --inline --hot --port 8888",
+    "example": "webpack --progress --hide-modules --config  webpack.config.build.example.js && cross-env NODE_ENV=example webpack-dev-server --config  webpack.config.build.example.js --open --inline --hot --port 9999",
     "build": "webpack --progress --hide-modules --config  webpack.config.build.js && webpack --progress --hide-modules --config  webpack.config.build.min.js",
     "build-example": "webpack --progress --hide-modules --config  webpack.config.build.example.js"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/Dreampie/Vue2-Components.git"
+    "url": "git://github.com/Dreampie/Vue2-Component.git"
   },
   "bugs": {
-    "url": "https://github.com/Dreampie/Vue2-Components/issues"
+    "url": "https://github.com/Dreampie/Vue2-Component/issues"
   },
   "dependencies": {
-    "axios": "^0.16.1",
     "jquery": "^3.2.1",
+    "@dreampie/vue2-plugin": "^0.0.1",
     "@dreampie/semantic-ui": "^2.2.11",
-    "semantic-ui-calendar": "^0.0.8",
-    "vue": "^2.3.3",
-    "vue-cookie": "^1.1.4",
-    "vue-router": "^2.5.3",
-    "vuex": "^2.3.1"
+    "semantic-ui-calendar": "^0.0.8"
   },
   "devDependencies": {
+    "vue": "^2.3.3",
+    "vue-router": "^2.5.3",
+    "vuex": "^2.3.1",
     "babel-core": "^6.24.1",
     "babel-loader": "^7.0.0",
     "babel-plugin-transform-runtime": "^6.23.0",

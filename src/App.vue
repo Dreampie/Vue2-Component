@@ -30,10 +30,7 @@
     import logoImage from  './asset/logo.png'
 
     import {mapGetters, mapActions} from 'vuex'
-    import Alert from './component/alert.js'
-    import Loading from './component/loading.js'
-    import BackTop from './component/back-top.js'
-    import TopMenu from './component/top-menu.js'
+    import {Alert, Loading, BackTop, TopMenu} from './component/index.js'
 
     export default {
         name: 'app',

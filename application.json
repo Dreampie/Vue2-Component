@@ -1,9 +1,9 @@
 {
-  "port": 8888,
+  "port": 9999,
   "title": "Vue Components",
   "example": {
-    "rootUrl": "http://localhost:8888",
-    "apiRootUrl": "http://localhost:888",
-    "loginUrl": "http://localhost:8888"
+    "rootUrl": "http://localhost:9999",
+    "apiRootUrl": "http://localhost:9999",
+    "loginUrl": "http://localhost:9999"
   }
 }
