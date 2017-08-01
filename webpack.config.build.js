@@ -9,8 +9,8 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, './dist'),
         filename: '[name].js',
-        library: "Vue2Component",
-        libraryTarget: "commonjs2",
+        library: "[name]",
+        libraryTarget: "umd",
     },
     externals: {
         'vue': 'vue',

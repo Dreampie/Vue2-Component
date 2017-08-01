@@ -1,5 +1,14 @@
-module.exports =
-/******/ (function(modules) { // webpackBootstrap
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory(require("vuex"));
+	else if(typeof define === 'function' && define.amd)
+		define(["vuex"], factory);
+	else if(typeof exports === 'object')
+		exports["index"] = factory(require("vuex"));
+	else
+		root["index"] = factory(root["vuex"]);
+})(this, function(__WEBPACK_EXTERNAL_MODULE_76__) {
+return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -3182,8 +3191,9 @@ if (false) {
 /* 76 */
 /***/ (function(module, exports) {
 
-module.exports = require("vuex");
+module.exports = __WEBPACK_EXTERNAL_MODULE_76__;
 
 /***/ })
 /******/ ]);
+});
 //# sourceMappingURL=index.js.map

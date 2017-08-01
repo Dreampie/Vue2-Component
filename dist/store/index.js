@@ -1,5 +1,14 @@
-module.exports =
-/******/ (function(modules) { // webpackBootstrap
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory(require("vue"));
+	else if(typeof define === 'function' && define.amd)
+		define(["vue"], factory);
+	else if(typeof exports === 'object')
+		exports["store/index"] = factory(require("vue"));
+	else
+		root["store/index"] = factory(root["vue"]);
+})(this, function(__WEBPACK_EXTERNAL_MODULE_22__) {
+return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -346,7 +355,7 @@ exports.default = function (obj, key, value) {
 /* 22 */
 /***/ (function(module, exports) {
 
-module.exports = require("vue");
+module.exports = __WEBPACK_EXTERNAL_MODULE_22__;
 
 /***/ }),
 /* 23 */
@@ -712,4 +721,5 @@ $export($export.S + $export.F * !__webpack_require__(0), 'Object', {defineProper
 
 /***/ })
 /******/ ]);
+});
 //# sourceMappingURL=index.js.map

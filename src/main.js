@@ -19,7 +19,9 @@ Vue.use(Vue2Plugin)
 
 console.log(Vue.cookie)
 console.log(Vue.bus)
-console.log(Vue.http.defaults)
+console.log(Vue.http.get("https://api.github.com/"))
+
+console.log(store)
 
 new Vue({
     router,
