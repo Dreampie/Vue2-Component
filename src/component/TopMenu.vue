@@ -52,7 +52,7 @@
                 this.deleteSession({
                     successCb: () => {
                         this.$router.push({path: '/'})
-                        this.deleteMenus({})
+                        this.clearMenus({})
                     }
                 })
             },
@@ -71,7 +71,7 @@
             },
             ...mapActions([
                 'findMenus',
-                'deleteMenus',
+                'clearMenus',
                 'deleteSession'
             ])
         },

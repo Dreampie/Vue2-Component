@@ -2914,7 +2914,7 @@ exports.default = {
             this.deleteSession({
                 successCb: function successCb() {
                     _this.$router.push({ path: '/' });
-                    _this.deleteMenus({});
+                    _this.clearMenus({});
                 }
             });
         },
@@ -2935,7 +2935,7 @@ exports.default = {
                 }
             });
         }
-    }, (0, _vuex.mapActions)(['findMenus', 'deleteMenus', 'deleteSession'])),
+    }, (0, _vuex.mapActions)(['findMenus', 'clearMenus', 'deleteSession'])),
     mounted: function mounted() {
         var _this3 = this;
 

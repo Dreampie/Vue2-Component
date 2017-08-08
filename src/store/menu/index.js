@@ -22,7 +22,7 @@ const actions = {
             typeof errorCb === 'function' ? errorCb() : undefined
         })
     },
-    deleteMenus ({commit}, {successCb, errorCb}) {
+    clearMenus ({commit}, {successCb, errorCb}) {
         commit(type.SET_MENUS, {menus: []})
         typeof successCb === 'function' ? successCb() : undefined
     }

@@ -408,7 +408,7 @@ var actions = {
             typeof errorCb === 'function' ? errorCb() : undefined;
         });
     },
-    deleteMenus: function deleteMenus(_ref3, _ref4) {
+    clearMenus: function clearMenus(_ref3, _ref4) {
         var commit = _ref3.commit;
         var successCb = _ref4.successCb,
             errorCb = _ref4.errorCb;
