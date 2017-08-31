@@ -96,10 +96,18 @@ body {
   opacity: 0;
 }
 
+.logo {
+  padding: 0 !important;
+}
+.logo img {
+  height: 41px !important;
+  margin: 0 auto !important;
+}
+
 .menu {
   border-radius: 0rem !important;
 }
-.activeMenu {
+.activation {
   background: rgba(0,0,0,0.05) !important;
   color: rgba(0,0,0,0.95) !important;
   font-weight: 400 !important;
@@ -499,6 +507,9 @@ a {
 .bodyer {
   min-height: 100%;
   position: relative;
+}
+.bodyer .content {
+  margin-left: 85px;
 }
 .bodyer .header {
   padding-bottom: 10px;

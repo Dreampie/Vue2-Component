@@ -13,10 +13,10 @@ const getters = {
 
 // actions
 const actions = {
-    getSession ({commit}, {successCb, errorCb}) {
+    getSession({commit}, {successCb, errorCb}) {
         api.getSession(session => {
             window.localStorage.setItem("session", JSON.stringify(session))
-            window.localStorage.setItem("sso", 0)
+            window.localStorage.setItem("loginDisabled", 0)
             commit(type.SET_SESSION, {session})
             typeof successCb === 'function' ? successCb() : undefined
         }, error => {
@@ -28,7 +28,7 @@ const actions = {
         api.deleteSession(result => {
             if (result) {
                 //主动退出 必须手动进行sso
-                window.localStorage.setItem("sso", 1)
+                window.localStorage.setItem("loginDisabled", 1)
                 window.localStorage.removeItem("session")
                 commit(type.DELETE_SESSION)
             }
@@ -42,10 +42,10 @@ const actions = {
 
 // mutations
 const mutations = {
-    [type.SET_SESSION] (state, {session}) {
+    [type.SET_SESSION](state, {session}) {
         state.session = session
     },
-    [type.DELETE_SESSION] (state) {
+    [type.DELETE_SESSION](state) {
         state.session = {}
     }
 }

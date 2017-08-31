@@ -21,7 +21,7 @@
 
     export default {
         name: 'index-view',
-        data () {
+        data() {
             return {
                 module: 'index',
                 num: 5,
@@ -32,7 +32,7 @@
         components: {
             'v-page': Page
         },
-        mounted(){
+        mounted() {
             $('div.calendar').calendar({
                     type: 'date',
                     ampm: false,

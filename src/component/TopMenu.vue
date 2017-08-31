@@ -1,20 +1,46 @@
 <template>
     <div class="ui menu">
-        <router-link class="ui item" to="/" exact>
+        <router-link v-if="logo" class="ui item" to="/" exact>
             <img :src="logo.url">
         </router-link>
-        <div v-if="!disable" v-for="menu in menus" :key="menu.id" class="ui dropdown item" tabindex="0"
-             style="margin: 0">
-            <div class="text">{{menu.title}}</div>
-            <i class="dropdown icon"></i>
-            <div class="menu transition hidden" tabindex="-1">
+        <!-- demo
+         <div tabindex="0" class="ui dropdown item" style="margin: 0px;">
+             <div class="text">充值调拨</div>
+             <i class="dropdown icon" tabindex="0">
+                 <div class="menu" tabindex="-1"></div>
+             </i>
+             <div tabindex="-1" class="menu transition hidden">
+                 <a href="/process-types/1/allocates/pre-review" class="ui item">充值初审</a>
+                 <a href="/process-types/1/allocates/review" class="ui item">充值复审</a>
+                 <a href="/process-types/1/allocates/all" class="ui item">全部充值</a>
+             </div>
+         </div>
+         -->
+        <template v-if="!disable" v-for="menu in menus">
 
-                <router-link v-for="child in menu.menus" :key="child.id" class="ui item"
-                             :to="{path: child.url, force: true}" exact>
-                    {{child.title}}
+            <template v-if="menu.menus && menu.menus.length>0">
+                <div v-if="!disable" :key="menu.id" class="ui dropdown item m" tabindex="0"
+                     style="margin: 0">
+                    <div class="text">{{menu.title}}</div>
+                    <i class="dropdown icon"></i>
+                    <div class="menu transition hidden" tabindex="-1">
+
+                        <router-link v-for="child in menu.menus" :key="child.id" class="ui item"
+                                     :to="{path: child.url, force: true}" exact>
+                            {{child.title}}
+                        </router-link>
+                    </div>
+                </div>
+            </template>
+            <template v-else>
+                <router-link :key="menu.id" class="ui item m" :to="{path: menu.url, force: true}" exact>
+                    {{menu.title}}
                 </router-link>
-            </div>
-        </div>
+            </template>
+
+        </template>
+
+
         <div class="right menu">
             <a class="ui item" :href="help.url" target="_blank">
                 <i class="help icon"></i>
@@ -35,20 +61,16 @@
 
     export default {
         name: 'v-top-menu',
-        props: ['logo', 'disable', 'session', 'help'],
-        computed: {
-            ...mapGetters([
-                'menus'
-            ])
-        },
+        props: ['logo', 'disable', 'session', 'menus', 'help'],
+        computed: {},
         methods: {
-            login(){
+            login() {
                 let rootUrl = window.localStorage.getItem("rootUrl")
                 this.$cookie.set("SAVED_URL", window.location.href, {domain: DomainSolver.getTopDomain(rootUrl)})
                 window.location.href = window.localStorage.getItem("loginUrl")
                 window.localStorage.setItem("loginDisabled", 0)
             },
-            logout(){
+            logout() {
                 this.deleteSession({
                     successCb: () => {
                         this.$router.push({path: '/'})
@@ -56,35 +78,43 @@
                     }
                 })
             },
-            reset(){
-                $(this.$el).find('.ui.dropdown').each((i, e) => {
+            reset() {
+                $(this.$el).find('.item.m').each((i, e) => {
                     const parent = this.menus[i]
-                    const menuIndex = parent.menus.findIndex(e => this.$route.path == e.url)
-                    if (menuIndex >= 0) {
-                        $(e).addClass('activeMenu')
-                        $(e).find('.text').text(parent.menus[menuIndex].title)
+                    if (parent.menus && parent.menus.length > 0) {
+                        const menuIndex = parent.menus.findIndex(e => this.$route.path === e.url)
+                        if (menuIndex >= 0) {
+                            $(e).addClass('activation')
+                            $(e).find('.text').text(parent.menus[menuIndex].title)
+                        } else {
+                            $(e).removeClass('activation')
+                            $(e).find('.text').text(parent.title)
+                        }
                     } else {
-                        $(e).removeClass('activeMenu')
-                        $(e).find('.text').text(parent.title)
+                        const active = this.$route.path === parent.url
+                        if (active) {
+                            $(e).addClass('activation')
+                            $(e).find('.text').text(parent.title)
+                        } else {
+                            $(e).removeClass('activation')
+                            $(e).find('.text').text(parent.title)
+                        }
                     }
                 })
             },
             ...mapActions([
-                'findMenus',
-                'clearMenus',
-                'deleteSession'
+                'deleteSession',
+                'clearMenus'
             ])
+        },
+        updated() {
+            this.reset()
+            this.$nextTick(() => {
+                $(this.$el).find('.dropdown.item.m').dropdown()
+            })
         },
         mounted() {
             this.$bus.$on('v-top-menu:reset', this.reset)
-            this.findMenus({
-                successCb: () => {
-                    this.$nextTick(() => {
-                        $(this.$el).find('.dropdown').dropdown()
-                        this.reset()
-                    })
-                }
-            })
         }
     }
 </script>
@@ -94,7 +124,7 @@
         border-radius: 0rem !important;
     }
 
-    .activeMenu {
+    .activation {
         background: rgba(0, 0, 0, .05) !important;
         color: rgba(0, 0, 0, .95) !important;
         font-weight: 400 !important;

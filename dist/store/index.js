@@ -7,7 +7,7 @@
 		exports["store/index"] = factory(require("vue"));
 	else
 		root["store/index"] = factory(root["vue"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_23__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_24__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -73,7 +73,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 38);
+/******/ 	return __webpack_require__(__webpack_require__.s = 42);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -327,7 +327,7 @@ module.exports = function(it, S){
 
 exports.__esModule = true;
 
-var _defineProperty = __webpack_require__(45);
+var _defineProperty = __webpack_require__(49);
 
 var _defineProperty2 = _interopRequireDefault(_defineProperty);
 
@@ -353,13 +353,15 @@ exports.default = function (obj, key, value) {
 /* 20 */,
 /* 21 */,
 /* 22 */,
-/* 23 */
+/* 23 */,
+/* 24 */
 /***/ (function(module, exports) {
 
-module.exports = __WEBPACK_EXTERNAL_MODULE_23__;
+module.exports = __WEBPACK_EXTERNAL_MODULE_24__;
 
 /***/ }),
-/* 24 */
+/* 25 */,
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -373,11 +375,11 @@ var _defineProperty2 = __webpack_require__(18);
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
-var _type = __webpack_require__(40);
+var _type = __webpack_require__(44);
 
 var type = _interopRequireWildcard(_type);
 
-var _api = __webpack_require__(39);
+var _api = __webpack_require__(43);
 
 var _api2 = _interopRequireDefault(_api);
 
@@ -433,8 +435,13 @@ var mutations = (0, _defineProperty3.default)({}, type.SET_MENUS, function (stat
 
     menus.sort(menuSort);
     menus.forEach(function (e) {
-        if (e.menus.length > 0) {
+        if (e.menus && e.menus.length > 0) {
             e.menus.sort(menuSort);
+            e.menus.forEach(function (c) {
+                if (c.menus && c.menus.length > 0) {
+                    c.menus.sort(menuSort);
+                }
+            });
         }
     });
     state.menus = menus;
@@ -448,7 +455,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 25 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -462,17 +469,17 @@ var _defineProperty2 = __webpack_require__(18);
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
-var _stringify = __webpack_require__(43);
+var _stringify = __webpack_require__(47);
 
 var _stringify2 = _interopRequireDefault(_stringify);
 
 var _mutations;
 
-var _type = __webpack_require__(42);
+var _type = __webpack_require__(46);
 
 var type = _interopRequireWildcard(_type);
 
-var _api = __webpack_require__(41);
+var _api = __webpack_require__(45);
 
 var _api2 = _interopRequireDefault(_api);
 
@@ -498,7 +505,7 @@ var actions = {
 
         _api2.default.getSession(function (session) {
             window.localStorage.setItem("session", (0, _stringify2.default)(session));
-            window.localStorage.setItem("sso", 0);
+            window.localStorage.setItem("loginDisabled", 0);
             commit(type.SET_SESSION, { session: session });
             typeof successCb === 'function' ? successCb() : undefined;
         }, function (error) {
@@ -512,7 +519,7 @@ var actions = {
 
         _api2.default.deleteSession(function (result) {
             if (result) {
-                window.localStorage.setItem("sso", 1);
+                window.localStorage.setItem("loginDisabled", 1);
                 window.localStorage.removeItem("session");
                 commit(type.DELETE_SESSION);
             }
@@ -539,8 +546,6 @@ exports.default = {
 };
 
 /***/ }),
-/* 26 */,
-/* 27 */,
 /* 28 */,
 /* 29 */,
 /* 30 */,
@@ -551,7 +556,11 @@ exports.default = {
 /* 35 */,
 /* 36 */,
 /* 37 */,
-/* 38 */
+/* 38 */,
+/* 39 */,
+/* 40 */,
+/* 41 */,
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -562,11 +571,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.menu = exports.session = undefined;
 
-var _index = __webpack_require__(25);
+var _index = __webpack_require__(27);
 
 var _index2 = _interopRequireDefault(_index);
 
-var _index3 = __webpack_require__(24);
+var _index3 = __webpack_require__(26);
 
 var _index4 = _interopRequireDefault(_index3);
 
@@ -576,7 +585,7 @@ exports.session = _index2.default;
 exports.menu = _index4.default;
 
 /***/ }),
-/* 39 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -586,7 +595,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _vue = __webpack_require__(23);
+var _vue = __webpack_require__(24);
 
 var _vue2 = _interopRequireDefault(_vue);
 
@@ -603,7 +612,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 40 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -615,7 +624,7 @@ Object.defineProperty(exports, "__esModule", {
 var SET_MENUS = exports.SET_MENUS = 'SET_MENUS';
 
 /***/ }),
-/* 41 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -625,7 +634,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _vue = __webpack_require__(23);
+var _vue = __webpack_require__(24);
 
 var _vue2 = _interopRequireDefault(_vue);
 
@@ -649,7 +658,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 42 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -662,21 +671,20 @@ var SET_SESSION = exports.SET_SESSION = 'SET_SESSION';
 var DELETE_SESSION = exports.DELETE_SESSION = 'DELETE_SESSION';
 
 /***/ }),
-/* 43 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = { "default": __webpack_require__(47), __esModule: true };
-
-/***/ }),
-/* 44 */,
-/* 45 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = { "default": __webpack_require__(49), __esModule: true };
-
-/***/ }),
-/* 46 */,
 /* 47 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = { "default": __webpack_require__(50), __esModule: true };
+
+/***/ }),
+/* 48 */,
+/* 49 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = { "default": __webpack_require__(52), __esModule: true };
+
+/***/ }),
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var core  = __webpack_require__(2)
@@ -686,20 +694,17 @@ module.exports = function stringify(it){ // eslint-disable-line no-unused-vars
 };
 
 /***/ }),
-/* 48 */,
-/* 49 */
+/* 51 */,
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(66);
+__webpack_require__(69);
 var $Object = __webpack_require__(2).Object;
 module.exports = function defineProperty(it, key, desc){
   return $Object.defineProperty(it, key, desc);
 };
 
 /***/ }),
-/* 50 */,
-/* 51 */,
-/* 52 */,
 /* 53 */,
 /* 54 */,
 /* 55 */,
@@ -713,7 +718,10 @@ module.exports = function defineProperty(it, key, desc){
 /* 63 */,
 /* 64 */,
 /* 65 */,
-/* 66 */
+/* 66 */,
+/* 67 */,
+/* 68 */,
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var $export = __webpack_require__(13);

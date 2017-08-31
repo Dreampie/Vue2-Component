@@ -1,24 +1,30 @@
 <template>
     <!--body-->
-    <div class="bodyer">
+    <div class="bodyer pusher">
         <v-loading></v-loading>
-        <!--head-->
-        <header class="header">
-            <v-top-menu :logo="logo" :help="help" :session="session"></v-top-menu>
-        </header>
-        <router-view class="main"></router-view>
-        <!--foot-->
-        <footer class="ui footer segment">
-            <div class="container">
-                <div>Copyright&nbsp;©&nbsp;2017&nbsp;
-                    <a :href="belong.url" target="_blank">@{{belong.name}}</a>.
-                </div>
+        <!--sider-->
+        <div class="sidebar">
+            <v-side-bar :logo="logo" :menus="menus"></v-side-bar>
+        </div>
+        <div class="content">
+            <!--head-->
+            <header class="header">
+                <v-top-menu :help="help" :session="session" :menus="childMenus"></v-top-menu>
+            </header>
+            <router-view class="main"></router-view>
+            <!--foot-->
+            <footer class="ui footer segment">
+                <div class="container">
+                    <div>Copyright&nbsp;©&nbsp;2017&nbsp;
+                        <a :href="belong.url" target="_blank">@{{belong.name}}</a>.
+                    </div>
 
-                <div>Base on <a :href="baseOn.url" target="_blank">{{baseOn.name}}</a> | Powered by
-                    <a :href="poweredBy.url">{{poweredBy.name}}.</a>
+                    <div>Base on <a :href="baseOn.url" target="_blank">{{baseOn.name}}</a> | Powered by
+                        <a :href="poweredBy.url">{{poweredBy.name}}.</a>
+                    </div>
                 </div>
-            </div>
-        </footer>
+            </footer>
+        </div>
         <v-alert></v-alert>
         <v-back-top></v-back-top>
     </div>
@@ -27,43 +33,52 @@
 <script>
     import '@dreampie/semantic-ui/semantic.min.js'
     import 'semantic-ui-calendar/dist/calendar.min.js'
-    import logoImage from  './asset/logo.png'
+    import logoImage from './asset/logo.png'
 
     import {mapGetters, mapActions} from 'vuex'
-    import {Alert, Loading, BackTop, TopMenu} from './component/index.js'
+    import {Alert, Loading, BackTop, SideBar, TopMenu} from './component/index.js'
 
     export default {
         name: 'app',
-        data () {
+        data() {
             return {
                 logo: {url: logoImage},
                 help: {url: 'https://www.vuejs.com'},
                 belong: {name: 'Vue Components', url: 'https://www.vuejs.com'},
                 baseOn: {name: 'Vuejs', url: 'https://github.com/vuejs'},
-                poweredBy: {name: 'Dreampie', url: 'https://github.com/Dreampie'}
+                poweredBy: {name: 'Dreampie', url: 'https://github.com/Dreampie'},
+                childMenus: []
             }
         },
         components: {
             'v-alert': Alert,
             'v-back-top': BackTop,
             'v-loading': Loading,
+            'v-side-bar': SideBar,
             'v-top-menu': TopMenu
         },
         computed: {
             ...mapGetters([
-                'session'
+                'session',
+                'menus'
             ])
         },
         methods: {
+            initChildMenu(childMenus) {
+                this.childMenus = childMenus
+            },
             ...mapActions([
-                'getSession'
+                'getSession',
+                'findMenus',
             ])
         },
-        mounted () {
+        mounted() {
             const loginDisabled = window.localStorage.getItem("loginDisabled")
-            if (!loginDisabled || loginDisabled == 0) {
+            if (!loginDisabled || loginDisabled === 0) {
                 this.getSession({})
             }
+            this.findMenus({})
+            this.$bus.$on('v-app-child-menu:init', this.initChildMenu)
         }
     }
 </script>
@@ -93,6 +108,10 @@
     .bodyer {
         min-height: 100%;
         position: relative;
+    }
+
+    .bodyer .content {
+        margin-left: 85px;
     }
 
     .bodyer .header {

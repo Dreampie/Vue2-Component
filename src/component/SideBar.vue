@@ -1,57 +1,101 @@
 <template>
-    <div class="ui left demo vertical inverted labeled icon sidebar menu along uncover visible" style="">
-        <a class="item">
-            <i class="home icon"></i>
-            Home
-        </a>
-        <a class="item">
+    <div class="ui left vertical labeled icon sidebar menu uncover visible" style="width: 86px !important">
+        <router-link class="item logo" to="/" exact>
+            <img :src="logo.url">
+        </router-link>
+
+        <!-- demo
+        <a class="item" data-content="测试1" data-position="right center" data-variation="large">
             <i class="block layout icon"></i>
             Topics
         </a>
-        <a class="item">
+        <a class="item" data-content="测试2" data-position="right center" data-variation="large">
             <i class="smile icon"></i>
             Friends
         </a>
+        -->
+
+        <template v-for="(menu, index) in menus">
+            <a class="item bar" :key="menu.id" :data-content="menu.title" data-position="right center"
+               data-variation="large" @click="active(index)">
+                <i class="icon" :class="menu.url"></i>
+                <!--{{menu.title}}-->
+            </a>
+        </template>
     </div>
 </template>
 
 <script>
     import {mapGetters, mapActions} from 'vuex'
-    import {DomainSolver} from '@dreampie/vue2-common'
 
     export default {
-        name: 'v-left-side-bar',
-        props: [],
+        name: 'v-side-bar',
+        props: ['logo', 'menus'],
         computed: {
-            ...mapGetters([
-            ])
+            ...mapGetters([])
         },
         methods: {
+            active(index) {
+                $(this.$el).find('.item.bar').each((i, e) => {
+                    if (i === index) {
+                        $(e).addClass('active')
+                        this.$bus.$emit('v-app-child-menu:init', this.menus[i].menus)
+                    } else {
+                        $(e).removeClass('active')
+                    }
+                })
 
-        },
-        mounted() {
-            this.$bus.$on('v-left-side-bar:reset', this.reset)
-            this.findMenus({
-                successCb: () => {
-                    this.$nextTick(() => {
-                        $(this.$el).find('.dropdown').dropdown()
-                        this.reset()
-                    })
+            },
+            reset() {
+                let actived = false
+
+                const items = $(this.$el).find('.item.bar')
+                items.each((i, e) => {
+                    const current = this.menus[i]
+                    if (current.menus && current.menus.length > 0) {
+                        let menuIndex = current.menus.findIndex(e => this.$route.path === e.url)
+
+                        //查询子菜单
+                        if (menuIndex < 0) {
+                            current.menus.forEach(m => {
+                                if (m.menus && m.menus.length > 0) {
+                                    menuIndex = m.menus.findIndex(e => this.$route.path === e.url)
+                                }
+                            })
+                        }
+
+                        if (menuIndex >= 0) {
+                            $(e).addClass('active')
+                            this.$bus.$emit('v-app-child-menu:init', current.menus)
+                            actived = true
+                        } else {
+                            $(e).removeClass('active')
+                        }
+                    }
+                })
+
+                if (!actived) {
+                    items.eq(0).addClass('active')
+                    this.$bus.$emit('v-app-child-menu:init', this.menus[0].menus)
                 }
+            },
+        },
+        updated() {
+            this.reset()
+            this.$nextTick(() => {
+                $(this.$el).find('.item.bar').popup()
             })
         }
     }
 </script>
 
 <style lang="stylus">
-    .menu {
-        border-radius: 0rem !important;
+    .logo {
+        padding: 0 !important;
     }
 
-    .activeMenu {
-        background: rgba(0, 0, 0, .05) !important;
-        color: rgba(0, 0, 0, .95) !important;
-        font-weight: 400 !important;
-        box-shadow: none !important;
+    .logo img {
+        height: 41px !important;
+        margin: 0 auto !important;
     }
 </style>
