@@ -41,7 +41,7 @@
                 }, 1000, 'linear')
 
                 window.setTimeout(() => {
-                    this.alerts.splice(this.alerts.findIndex(e => alert.for == e.for), 1)
+                    this.alerts.splice(this.alerts.findIndex(e => alert.for === e.for), 1)
                 }, 2000)
             }
         },
@@ -58,7 +58,7 @@
         left: 0;
         margin: 0;
         padding: 0;
-        z-index: 9999;
+        z-index: 999;
     }
 
     .alerts .alert {

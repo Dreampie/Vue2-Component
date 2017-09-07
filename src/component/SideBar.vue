@@ -1,6 +1,6 @@
 <template>
-    <div class="ui left vertical labeled icon sidebar menu uncover visible" style="width: 86px !important">
-        <router-link class="item logo" to="/" exact>
+    <div class="ui left vertical labeled icon sidebar menu uncover visible">
+        <router-link v-if="logo" class="item logo" to="/" exact>
             <img :src="logo.url">
         </router-link>
 
@@ -18,7 +18,7 @@
         <template v-for="(menu, index) in menus">
             <a class="item bar" :key="menu.id" :data-content="menu.title" data-position="right center"
                data-variation="large" @click="active(index)">
-                <i class="icon" :class="menu.url"></i>
+                <i class="icon" :class="menu.icon"></i>
                 <!--{{menu.title}}-->
             </a>
         </template>
@@ -90,12 +90,20 @@
 </script>
 
 <style lang="stylus">
-    .logo {
+    .sidebar .logo {
         padding: 0 !important;
+        flex-direction: column !important;
+        display: flex !important;
+        justify-content: center !important;
     }
 
-    .logo img {
-        height: 41px !important;
+    .sidebar .logo img {
+        height: 30px;
         margin: 0 auto !important;
+    }
+
+    .sidebar .item {
+        min-width: 63px !important;
+        min-height: 41px !important;
     }
 </style>

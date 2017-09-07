@@ -2824,7 +2824,7 @@ exports.default = {
 
             window.setTimeout(function () {
                 _this2.alerts.splice(_this2.alerts.findIndex(function (e) {
-                    return alert.for == e.for;
+                    return alert.for === e.for;
                 }), 1);
             }, 2000);
         }
@@ -2912,7 +2912,7 @@ exports.default = {
             window.setTimeout(function () {
                 if (progress.progress('is complete')) {
                     _this2.loadings.splice(_this2.loadings.findIndex(function (e) {
-                        return loading.for == e.for;
+                        return loading.for === e.for;
                     }), 1);
                 }
             }, 500);
@@ -3423,7 +3423,7 @@ exports = module.exports = __webpack_require__(5)(undefined);
 
 
 // module
-exports.push([module.i, "\n.logo {\n  padding: 0 !important;\n}\n.logo img {\n  height: 41px !important;\n  margin: 0 auto !important;\n}\n", ""]);
+exports.push([module.i, "\n.sidebar .logo {\n  padding: 0 !important;\n  flex-direction: column !important;\n  display: flex !important;\n  justify-content: center !important;\n}\n.sidebar .logo img {\n  height: 30px;\n  margin: 0 auto !important;\n}\n.sidebar .item {\n  min-width: 63px !important;\n  min-height: 41px !important;\n}\n", ""]);
 
 // exports
 
@@ -3465,7 +3465,7 @@ exports = module.exports = __webpack_require__(5)(undefined);
 
 
 // module
-exports.push([module.i, "\n.alerts {\n  position: fixed;\n  bottom: 70px;\n  left: 0;\n  margin: 0;\n  padding: 0;\n  z-index: 9999;\n}\n.alerts .alert {\n  position: relative;\n  display: none;\n  width: auto;\n  text-align: left;\n}\n.alerts .alert {\n  position: relative;\n  z-index: 9999;\n  display: table;\n  margin: 0 0 8px 0;\n  padding: 0 14px 0 4px;\n  width: auto;\n  height: auto;\n  border: 0;\n  border-left: 4px solid #288ecf;\n  border-radius: 1px;\n  background-color: #3a9bd9;\n  box-shadow: 0 1px 3px rgba(0,0,0,0.3);\n  color: #fff;\n  word-break: break-all;\n  font-weight: 700;\n  font-size: 1rem;\n  line-height: 24px;\n}\n.alerts .alert .close {\n  color: #fff !important;\n  right: -12px;\n  top: 1px;\n  text-shadow: 0 0 0;\n  cursor: pointer;\n}\n.alerts .success {\n  background-color: #95ba12 !important;\n  border-color: #86a710 !important;\n}\n.alerts .info {\n  background-color: #055f95 !important;\n  border-color: #055586 !important;\n}\n.alerts .warning {\n  background-color: #ff9101 !important;\n  border-color: #e68300 !important;\n}\n.alerts .danger {\n  background-color: #e74c3c !important;\n  border-color: #e43422 !important;\n}\n", ""]);
+exports.push([module.i, "\n.alerts {\n  position: fixed;\n  bottom: 70px;\n  left: 0;\n  margin: 0;\n  padding: 0;\n  z-index: 999;\n}\n.alerts .alert {\n  position: relative;\n  display: none;\n  width: auto;\n  text-align: left;\n}\n.alerts .alert {\n  position: relative;\n  z-index: 9999;\n  display: table;\n  margin: 0 0 8px 0;\n  padding: 0 14px 0 4px;\n  width: auto;\n  height: auto;\n  border: 0;\n  border-left: 4px solid #288ecf;\n  border-radius: 1px;\n  background-color: #3a9bd9;\n  box-shadow: 0 1px 3px rgba(0,0,0,0.3);\n  color: #fff;\n  word-break: break-all;\n  font-weight: 700;\n  font-size: 1rem;\n  line-height: 24px;\n}\n.alerts .alert .close {\n  color: #fff !important;\n  right: -12px;\n  top: 1px;\n  text-shadow: 0 0 0;\n  cursor: pointer;\n}\n.alerts .success {\n  background-color: #95ba12 !important;\n  border-color: #86a710 !important;\n}\n.alerts .info {\n  background-color: #055f95 !important;\n  border-color: #055586 !important;\n}\n.alerts .warning {\n  background-color: #ff9101 !important;\n  border-color: #e68300 !important;\n}\n.alerts .danger {\n  background-color: #e74c3c !important;\n  border-color: #e43422 !important;\n}\n", ""]);
 
 // exports
 
@@ -3493,7 +3493,7 @@ exports = module.exports = __webpack_require__(5)(undefined);
 
 
 // module
-exports.push([module.i, "\n.loadings {\n  overflow-x: hidden;\n}\n.progress {\n  width: 100%;\n  position: absolute !important;\n  border-radius: 0rem !important;\n}\n", ""]);
+exports.push([module.i, "\n.loadings {\n  overflow-x: hidden;\n}\n.progress {\n  width: 100%;\n  position: absolute !important;\n  border-radius: 0rem !important;\n  z-index: 999;\n}\n", ""]);
 
 // exports
 
@@ -3785,11 +3785,8 @@ module.exports = function (css) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "ui left vertical labeled icon sidebar menu uncover visible",
-    staticStyle: {
-      "width": "86px !important"
-    }
-  }, [_c('router-link', {
+    staticClass: "ui left vertical labeled icon sidebar menu uncover visible"
+  }, [(_vm.logo) ? _c('router-link', {
     staticClass: "item logo",
     attrs: {
       "to": "/",
@@ -3799,7 +3796,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "src": _vm.logo.url
     }
-  })]), _vm._v(" "), _vm._l((_vm.menus), function(menu, index) {
+  })]) : _vm._e(), _vm._v(" "), _vm._l((_vm.menus), function(menu, index) {
     return [_c('a', {
       key: menu.id,
       staticClass: "item bar",
@@ -3815,7 +3812,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('i', {
       staticClass: "icon",
-      class: menu.url
+      class: menu.icon
     })])]
   })], 2)
 },staticRenderFns: []}
@@ -3934,7 +3931,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', {
     staticClass: "ui menu"
   }, [(_vm.logo) ? _c('router-link', {
-    staticClass: "ui item",
+    staticClass: "item",
     attrs: {
       "to": "/",
       "exact": ""
@@ -3976,7 +3973,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }, [_vm._v("\n                        " + _vm._s(child.title) + "\n                    ")])
     }))]) : _vm._e()] : [_c('router-link', {
       key: menu.id,
-      staticClass: "ui item m",
+      staticClass: "item m",
       attrs: {
         "to": {
           path: menu.url,
@@ -3988,7 +3985,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v(" "), _c('div', {
     staticClass: "right menu"
   }, [_c('a', {
-    staticClass: "ui item",
+    staticClass: "item",
     attrs: {
       "href": _vm.help.url,
       "target": "_blank"
@@ -3996,7 +3993,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('i', {
     staticClass: "help icon"
   })]), _vm._v(" "), (!(_vm.session || {}).id) ? _c('a', {
-    staticClass: "ui item",
+    staticClass: "item",
     on: {
       "click": _vm.login
     }
@@ -4005,7 +4002,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "color": "#912d2b"
     }
   }, [_vm._v("登录!")])]) : _c('a', {
-    staticClass: "ui item",
+    staticClass: "item",
     on: {
       "click": _vm.logout
     }

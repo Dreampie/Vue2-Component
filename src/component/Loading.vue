@@ -9,13 +9,13 @@
 <script>
     export default {
         name: 'v-loading',
-        data(){
+        data() {
             return {
                 loadings: [],
             }
         },
         methods: {
-            start(loading){
+            start(loading) {
                 this.loadings.unshift(loading)
 
                 this.$nextTick(() => {
@@ -29,21 +29,21 @@
                     }, 200)
                 })
             },
-            complete(loading){
+            complete(loading) {
                 const progress = $(this.$el).find('[for="' + loading.for + '"]')
                 progress.progress('complete')
 
                 window.setTimeout(() => {
                     if (progress.progress('is complete')) {
-                        this.loadings.splice(this.loadings.findIndex(e => loading.for == e.for), 1)
+                        this.loadings.splice(this.loadings.findIndex(e => loading.for === e.for), 1)
                     }
                 }, 500)
             },
-            completeAll(){
+            completeAll() {
                 this.loadings.forEach(loading => this.complete(loading))
             }
         },
-        mounted () {
+        mounted() {
             this.$bus.$on('v-loading:start', this.start)
             this.$bus.$on('v-loading:complete', this.complete)
             this.$bus.$on('v-loading:completeAll', this.completeAll)
@@ -60,5 +60,6 @@
         width: 100%;
         position: absolute !important;
         border-radius: 0rem !important;
+        z-index: 999;
     }
 </style>

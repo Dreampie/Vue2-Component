@@ -6,7 +6,7 @@
         <div class="sidebar">
             <v-side-bar :logo="logo" :menus="menus"></v-side-bar>
         </div>
-        <div class="content">
+        <div class="contenter">
             <!--head-->
             <header class="header">
                 <v-top-menu :help="help" :session="session" :menus="childMenus"></v-top-menu>
@@ -47,6 +47,7 @@
                 belong: {name: 'Vue Components', url: 'https://www.vuejs.com'},
                 baseOn: {name: 'Vuejs', url: 'https://github.com/vuejs'},
                 poweredBy: {name: 'Dreampie', url: 'https://github.com/Dreampie'},
+//                parentMenus: [],
                 childMenus: []
             }
         },
@@ -77,7 +78,15 @@
             if (!loginDisabled || loginDisabled === 0) {
                 this.getSession({})
             }
-            this.findMenus({})
+            const self = this
+            this.findMenus({
+//                successCb: () => {
+//                    self.parentMenus = [
+//                        {sort: 0, title: '资金调拨', url: 'retweet', menus: self.menus},
+//                        {sort: 1, title: '银行信息', url: 'university', menus: []}
+//                    ]
+//                }
+            })
             this.$bus.$on('v-app-child-menu:init', this.initChildMenu)
         }
     }
@@ -106,28 +115,44 @@
     }
 
     .bodyer {
+        padding-top: 45px;
         min-height: 100%;
         position: relative;
     }
 
-    .bodyer .content {
-        margin-left: 85px;
+    .bodyer .sidebar {
+        z-index: 3 !important;
+    }
+
+    .bodyer .contenter {
+        margin-left: 62px;
     }
 
     .bodyer .header {
+        padding-left: 62px;
         padding-bottom: 10px;
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        z-index: 1;
     }
 
     .bodyer .main {
-        padding: 0 10px 76px 10px;
+        padding: 16px 10px 76px 10px;
     }
 
     .bodyer .footer {
-        border-radius: 0rem !important;
-        margin: 0rem !important;
+        border-radius: 0 !important;
+        margin: 0 !important;
         width: 100%;
-        position: absolute;
-        bottom: 0;
+        padding-left: 62px;
+        padding-bottom: 10px;
+        position: fixed;
+        left: 0;
+        top: auto;
+        bottom: 0
+        z-index: 1;
     }
 
     .bodyer .footer .container {
@@ -141,4 +166,14 @@
     .bodyer .footer .container a:hover {
         color: rgba(0, 0, 0, 0.8);
     }
+
+    .calendar {
+        display: inline-block;
+    }
+
+    .ui.attached.button {
+        box-shadow: none !important;
+    }
+
 </style>
+

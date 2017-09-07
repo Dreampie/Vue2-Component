@@ -1,6 +1,6 @@
 <template>
     <div class="ui menu">
-        <router-link v-if="logo" class="ui item" to="/" exact>
+        <router-link v-if="logo" class="item" to="/" exact>
             <img :src="logo.url">
         </router-link>
         <!-- demo
@@ -33,7 +33,7 @@
                 </div>
             </template>
             <template v-else>
-                <router-link :key="menu.id" class="ui item m" :to="{path: menu.url, force: true}" exact>
+                <router-link :key="menu.id" class="item m" :to="{path: menu.url, force: true}" exact>
                     {{menu.title}}
                 </router-link>
             </template>
@@ -42,13 +42,13 @@
 
 
         <div class="right menu">
-            <a class="ui item" :href="help.url" target="_blank">
+            <a class="item" :href="help.url" target="_blank">
                 <i class="help icon"></i>
             </a>
-            <a v-if="!(session||{}).id" class="ui item" @click="login">
+            <a v-if="!(session||{}).id" class="item" @click="login">
                 您好, 请&nbsp;<span style="color: #912d2b">登录!</span>
             </a>
-            <a v-else class="ui item" @click="logout">
+            <a v-else class="item" @click="logout">
                 欢迎, {{session.realname}}&nbsp;<span style="color: #912d2b">退出!</span>
             </a>
         </div>

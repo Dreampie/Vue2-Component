@@ -8,13 +8,13 @@
 
     export default {
         name: 'v-back-top',
-        data(){
+        data() {
             return {
                 show: false
             }
         },
         methods: {
-            backTop(){
+            backTop() {
                 $(document.body).animate({
                     scrollTop: '0px'
                 }, 400, 'linear')
