@@ -41,7 +41,7 @@
         right: 40px;
         top: auto;
         cursor: pointer;
-        z-index: 999;
+        z-index: 9999;
         color: rgba(0, 0, 0, 0.6);
     }
 

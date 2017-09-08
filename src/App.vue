@@ -4,12 +4,12 @@
         <v-loading></v-loading>
         <!--sider-->
         <div class="sidebar">
-            <v-side-bar :logo="logo" :menus="menus"></v-side-bar>
+            <v-side-bar :logo="logo" :menus="menus" :help="help"></v-side-bar>
         </div>
         <div class="contenter">
             <!--head-->
             <header class="header">
-                <v-top-menu :help="help" :session="session" :menus="childMenus"></v-top-menu>
+                <v-top-menu :session="session" :menus="childMenus"></v-top-menu>
             </header>
             <router-view class="main"></router-view>
             <!--foot-->
@@ -37,13 +37,14 @@
 
     import {mapGetters, mapActions} from 'vuex'
     import {Alert, Loading, BackTop, SideBar, TopMenu} from './component/index.js'
+    import {DomainSolver} from '@dreampie/vue2-common'
 
     export default {
         name: 'app',
         data() {
             return {
-                logo: {url: logoImage},
-                help: {url: 'https://www.vuejs.com'},
+                logo: {name: 'Logo', url: logoImage},
+                help: {name: 'Help', url: 'https://www.vuejs.com'},
                 belong: {name: 'Vue Components', url: 'https://www.vuejs.com'},
                 baseOn: {name: 'Vuejs', url: 'https://github.com/vuejs'},
                 poweredBy: {name: 'Dreampie', url: 'https://github.com/Dreampie'},
@@ -66,27 +67,50 @@
         },
         methods: {
             initChildMenu(childMenus) {
+                $(document.body).animate({
+                    scrollTop: '0px'
+                }, 400, 'linear')
                 this.childMenus = childMenus
+            },
+            login() {
+                let rootUrl = window.localStorage.getItem("rootUrl")
+                this.$cookie.set("SAVED_URL", window.location.href, {domain: DomainSolver.getTopDomain(rootUrl)})
+                window.location.href = window.localStorage.getItem("loginUrl")
+                window.localStorage.setItem("loginDisabled", 0)
+            },
+            logout() {
+                const self = this
+                this.deleteSession({
+                    successCb: () => {
+                        self.$router.push({path: '/'})
+                        self.clearMenus({})
+                    }
+                })
             },
             ...mapActions([
                 'getSession',
+                'deleteSession',
                 'findMenus',
+                'clearMenus'
             ])
         },
         mounted() {
             const loginDisabled = window.localStorage.getItem("loginDisabled")
             if (!loginDisabled || loginDisabled === 0) {
                 this.getSession({})
-            }
-            const self = this
-            this.findMenus({
+
+                const self = this
+                this.findMenus({
 //                successCb: () => {
 //                    self.parentMenus = [
 //                        {sort: 0, title: '资金调拨', url: 'retweet', menus: self.menus},
 //                        {sort: 1, title: '银行信息', url: 'university', menus: []}
 //                    ]
 //                }
-            })
+                })
+            }
+            this.$bus.$on('v-app:login', this.login)
+            this.$bus.$on('v-app:logout', this.logout)
             this.$bus.$on('v-app-child-menu:init', this.initChildMenu)
         }
     }

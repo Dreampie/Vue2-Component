@@ -60,6 +60,6 @@
         width: 100%;
         position: absolute !important;
         border-radius: 0rem !important;
-        z-index: 999;
+        z-index: 9999;
     }
 </style>

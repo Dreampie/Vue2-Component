@@ -42,7 +42,7 @@
 
 
         <div class="right menu">
-            <a class="item" :href="help.url" target="_blank">
+            <a class="item" v-if="help" :href="help.url" target="_blank">
                 <i class="help icon"></i>
             </a>
             <a v-if="!(session||{}).id" class="item" @click="login">
@@ -57,7 +57,6 @@
 
 <script>
     import {mapGetters, mapActions} from 'vuex'
-    import {DomainSolver} from '@dreampie/vue2-common'
 
     export default {
         name: 'v-top-menu',
@@ -65,47 +64,37 @@
         computed: {},
         methods: {
             login() {
-                let rootUrl = window.localStorage.getItem("rootUrl")
-                this.$cookie.set("SAVED_URL", window.location.href, {domain: DomainSolver.getTopDomain(rootUrl)})
-                window.location.href = window.localStorage.getItem("loginUrl")
-                window.localStorage.setItem("loginDisabled", 0)
+                this.$bus.$emit('v-app:login')
             },
             logout() {
-                this.deleteSession({
-                    successCb: () => {
-                        this.$router.push({path: '/'})
-                        this.clearMenus({})
-                    }
-                })
+                this.$bus.$emit('v-app:logout')
             },
             reset() {
-                $(this.$el).find('.item.m').each((i, e) => {
-                    const parent = this.menus[i]
-                    if (parent.menus && parent.menus.length > 0) {
-                        const menuIndex = parent.menus.findIndex(e => this.$route.path === e.url)
-                        if (menuIndex >= 0) {
-                            $(e).addClass('activation')
-                            $(e).find('.text').text(parent.menus[menuIndex].title)
+                if (this.menus.length > 0) {
+                    $(this.$el).find('.item.m').each((i, e) => {
+                        const parent = this.menus[i]
+                        if (parent.menus && parent.menus.length > 0) {
+                            const menuIndex = parent.menus.findIndex(e => this.$route.path === e.url)
+                            if (menuIndex >= 0) {
+                                $(e).addClass('activation')
+                                $(e).find('.text').text(parent.menus[menuIndex].title)
+                            } else {
+                                $(e).removeClass('activation')
+                                $(e).find('.text').text(parent.title)
+                            }
                         } else {
-                            $(e).removeClass('activation')
-                            $(e).find('.text').text(parent.title)
+                            const active = this.$route.path === parent.url
+                            if (active) {
+                                $(e).addClass('activation')
+                                $(e).find('.text').text(parent.title)
+                            } else {
+                                $(e).removeClass('activation')
+                                $(e).find('.text').text(parent.title)
+                            }
                         }
-                    } else {
-                        const active = this.$route.path === parent.url
-                        if (active) {
-                            $(e).addClass('activation')
-                            $(e).find('.text').text(parent.title)
-                        } else {
-                            $(e).removeClass('activation')
-                            $(e).find('.text').text(parent.title)
-                        }
-                    }
-                })
-            },
-            ...mapActions([
-                'deleteSession',
-                'clearMenus'
-            ])
+                    })
+                }
+            }
         },
         updated() {
             this.reset()

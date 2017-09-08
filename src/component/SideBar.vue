@@ -22,6 +22,12 @@
                 <!--{{menu.title}}-->
             </a>
         </template>
+
+        <a class="item" v-if="help" :href="help.url" target="_blank" :data-content="help.name"
+           data-position="right center"
+           data-variation="large">
+            <i class="help icon"></i>
+        </a>
     </div>
 </template>
 
@@ -30,10 +36,8 @@
 
     export default {
         name: 'v-side-bar',
-        props: ['logo', 'menus'],
-        computed: {
-            ...mapGetters([])
-        },
+        props: ['logo', 'menus', 'help'],
+        computed: {},
         methods: {
             active(index) {
                 $(this.$el).find('.item.bar').each((i, e) => {
@@ -47,43 +51,44 @@
 
             },
             reset() {
-                let actived = false
+                if (this.menus.length > 0) {
+                    let actived = false
+                    const items = $(this.$el).find('.item.bar')
+                    items.each((i, e) => {
+                        const current = this.menus[i]
+                        if (current.menus && current.menus.length > 0) {
+                            let menuIndex = current.menus.findIndex(e => this.$route.path === e.url)
 
-                const items = $(this.$el).find('.item.bar')
-                items.each((i, e) => {
-                    const current = this.menus[i]
-                    if (current.menus && current.menus.length > 0) {
-                        let menuIndex = current.menus.findIndex(e => this.$route.path === e.url)
+                            //查询子菜单
+                            if (menuIndex < 0) {
+                                current.menus.forEach(m => {
+                                    if (m.menus && m.menus.length > 0) {
+                                        menuIndex = m.menus.findIndex(e => this.$route.path === e.url)
+                                    }
+                                })
+                            }
 
-                        //查询子菜单
-                        if (menuIndex < 0) {
-                            current.menus.forEach(m => {
-                                if (m.menus && m.menus.length > 0) {
-                                    menuIndex = m.menus.findIndex(e => this.$route.path === e.url)
-                                }
-                            })
+                            if (menuIndex >= 0) {
+                                $(e).addClass('active')
+                                this.$bus.$emit('v-app-child-menu:init', current.menus)
+                                actived = true
+                            } else {
+                                $(e).removeClass('active')
+                            }
                         }
+                    })
 
-                        if (menuIndex >= 0) {
-                            $(e).addClass('active')
-                            this.$bus.$emit('v-app-child-menu:init', current.menus)
-                            actived = true
-                        } else {
-                            $(e).removeClass('active')
-                        }
+                    if (!actived) {
+                        items.eq(0).addClass('active')
+                        this.$bus.$emit('v-app-child-menu:init', this.menus[0].menus)
                     }
-                })
-
-                if (!actived) {
-                    items.eq(0).addClass('active')
-                    this.$bus.$emit('v-app-child-menu:init', this.menus[0].menus)
                 }
             },
         },
         updated() {
             this.reset()
             this.$nextTick(() => {
-                $(this.$el).find('.item.bar').popup()
+                $(this.$el).find('.item').popup()
             })
         }
     }

@@ -58,7 +58,7 @@
         left: 0;
         margin: 0;
         padding: 0;
-        z-index: 999;
+        z-index: 9999;
     }
 
     .alerts .alert {
