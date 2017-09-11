@@ -1,51 +1,55 @@
 <template>
     <div class="alerts">
-        <div v-for="alert in alerts" :for="alert.for" class="ui alert" :class="alert.type">
-            <a v-if="!alert.keep" class="close" @click="close(alert)"><i class="remove icon"></i></a>
-            {{alert.message}}
-        </div>
+        <template v-for="alert in alerts">
+            <div :for="alert.for" class="ui alert" :class="alert.type">
+                <a v-if="!alert.keep" class="close" @click="close(alert)"><i class="remove icon"></i></a>
+                {{alert.message}}
+            </div>
+        </template>
     </div>
 </template>
 
 <script>
     export default {
         name: 'v-alert',
-        data(){
+        data() {
             return {
                 alerts: []
             }
         },
         methods: {
-            alert(alert){
+            alert(alert) {
                 this.alerts.unshift(alert)
 
                 this.$nextTick(() => {
-                    const bar = $(this.$el).find('[for="' + alert.for + '"]')
+                    const bar = $('div.alerts').find('div[for="' + alert.for + '"]')
                     bar.css({left: '-' + bar.outerWidth() + 'px', display: 'block'})
 
                     bar.animate({
                         left: '0px'
                     }, 1000, 'linear')
 
+                    const self = this
                     if (!alert.keep) {
                         window.setTimeout(() => {
-                            this.close(alert)
+                            self.close(alert)
                         }, 5000)
                     }
                 })
             },
-            close(alert){
-                const bar = $(this.$el).find('[for="' + alert.for + '"]')
-                bar.animate({
-                    left: '-' + bar.outerWidth() + 'px'
-                }, 1000, 'linear')
-
+            close(alert) {
+                const self = this
                 window.setTimeout(() => {
-                    this.alerts.splice(this.alerts.findIndex(e => alert.for === e.for), 1)
+                    const bar = $('div.alerts').find('div[for="' + alert.for + '"]')
+                    bar.animate({
+                        left: '-' + bar.outerWidth() + 'px'
+                    }, 1000, 'linear')
+
+                    self.alerts.splice(self.alerts.findIndex(e => alert.for === e.for), 1)
                 }, 2000)
             }
         },
-        mounted () {
+        mounted() {
             this.$bus.$on('v-alert:alert', this.alert)
         }
     }

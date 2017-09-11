@@ -21,8 +21,9 @@
             }
         },
         mounted() {
+            const self = this
             $(window).scroll(() => {
-                this.show = $(window).scrollTop() > 200
+                self.show = $(window).scrollTop() > 200
             })
         }
     }

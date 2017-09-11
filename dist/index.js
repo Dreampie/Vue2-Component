@@ -919,30 +919,30 @@ exports.default = {
             this.alerts.unshift(_alert);
 
             this.$nextTick(function () {
-                var bar = $(_this.$el).find('[for="' + _alert.for + '"]');
+                var bar = $('div.alerts').find('div[for="' + _alert.for + '"]');
                 bar.css({ left: '-' + bar.outerWidth() + 'px', display: 'block' });
 
                 bar.animate({
                     left: '0px'
                 }, 1000, 'linear');
 
+                var self = _this;
                 if (!_alert.keep) {
                     window.setTimeout(function () {
-                        _this.close(_alert);
+                        self.close(_alert);
                     }, 5000);
                 }
             });
         },
         close: function close(alert) {
-            var _this2 = this;
-
-            var bar = $(this.$el).find('[for="' + alert.for + '"]');
-            bar.animate({
-                left: '-' + bar.outerWidth() + 'px'
-            }, 1000, 'linear');
-
+            var self = this;
             window.setTimeout(function () {
-                _this2.alerts.splice(_this2.alerts.findIndex(function (e) {
+                var bar = $('div.alerts').find('div[for="' + alert.for + '"]');
+                bar.animate({
+                    left: '-' + bar.outerWidth() + 'px'
+                }, 1000, 'linear');
+
+                self.alerts.splice(self.alerts.findIndex(function (e) {
                     return alert.for === e.for;
                 }), 1);
             }, 2000);
@@ -979,10 +979,9 @@ exports.default = {
         }
     },
     mounted: function mounted() {
-        var _this = this;
-
+        var self = this;
         $(window).scroll(function () {
-            _this.show = $(window).scrollTop() > 200;
+            self.show = $(window).scrollTop() > 200;
         });
     }
 };
@@ -1007,40 +1006,42 @@ exports.default = {
 
     methods: {
         start: function start(loading) {
-            var _this = this;
-
             this.loadings.unshift(loading);
 
             this.$nextTick(function () {
-                var progress = $(_this.$el).find('[for="' + loading.for + '"]');
                 var intervalId = window.setInterval(function () {
-                    if (progress.progress('get percent') < 85) {
-                        progress.progress('increment');
-                    } else {
-                        window.clearInterval(intervalId);
+                    var progress = $('div.loadings').find('div[for="' + loading.for + '"]');
+
+                    if (progress.length > 0) {
+                        if (progress.progress('get percent') < 85) {
+                            progress.progress('increment');
+                        } else {
+                            window.clearInterval(intervalId);
+                        }
                     }
                 }, 200);
             });
         },
         complete: function complete(loading) {
-            var _this2 = this;
-
-            var progress = $(this.$el).find('[for="' + loading.for + '"]');
+            var self = this;
+            var progress = $('div.loadings').find('div[for="' + loading.for + '"]');
             progress.progress('complete');
 
             window.setTimeout(function () {
-                if (progress.progress('is complete')) {
-                    _this2.loadings.splice(_this2.loadings.findIndex(function (e) {
-                        return loading.for === e.for;
-                    }), 1);
+                if (progress.length > 0) {
+                    if (progress.progress('is complete')) {
+                        self.loadings.splice(self.loadings.findIndex(function (e) {
+                            return loading.for === e.for;
+                        }), 1);
+                    }
                 }
             }, 500);
         },
         completeAll: function completeAll() {
-            var _this3 = this;
+            var _this = this;
 
             this.loadings.forEach(function (loading) {
-                return _this3.complete(loading);
+                return _this.complete(loading);
             });
         }
     },
@@ -1789,8 +1790,8 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "alerts"
-  }, _vm._l((_vm.alerts), function(alert) {
-    return _c('div', {
+  }, [_vm._l((_vm.alerts), function(alert) {
+    return [_c('div', {
       staticClass: "ui alert",
       class: alert.type,
       attrs: {
@@ -1805,8 +1806,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('i', {
       staticClass: "remove icon"
-    })]) : _vm._e(), _vm._v("\n        " + _vm._s(alert.message) + "\n    ")])
-  }))
+    })]) : _vm._e(), _vm._v("\n            " + _vm._s(alert.message) + "\n        ")])]
+  })], 2)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -1920,16 +1921,16 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "loadings"
-  }, _vm._l((_vm.loadings), function(loading) {
-    return _c('div', {
+  }, [_vm._l((_vm.loadings), function(loading) {
+    return [_c('div', {
       staticClass: "ui top attached red progress",
       attrs: {
         "for": loading.for
       }
     }, [_c('div', {
       staticClass: "bar"
-    })])
-  }))
+    })])]
+  })], 2)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

@@ -1,8 +1,10 @@
 <template>
     <div class="loadings">
-        <div v-for="loading in loadings" :for="loading.for" class="ui top attached red progress">
-            <div class="bar"></div>
-        </div>
+        <template v-for="loading in loadings">
+            <div :for="loading.for" class="ui top attached red progress">
+                <div class="bar"></div>
+            </div>
+        </template>
     </div>
 </template>
 
@@ -19,23 +21,29 @@
                 this.loadings.unshift(loading)
 
                 this.$nextTick(() => {
-                    const progress = $(this.$el).find('[for="' + loading.for + '"]')
                     const intervalId = window.setInterval(() => {
-                        if (progress.progress('get percent') < 85) {
-                            progress.progress('increment')
-                        } else {
-                            window.clearInterval(intervalId)
+                        const progress = $('div.loadings').find('div[for="' + loading.for + '"]')
+
+                        if (progress.length > 0) {
+                            if (progress.progress('get percent') < 85) {
+                                progress.progress('increment')
+                            } else {
+                                window.clearInterval(intervalId)
+                            }
                         }
                     }, 200)
                 })
             },
             complete(loading) {
-                const progress = $(this.$el).find('[for="' + loading.for + '"]')
+                const self = this
+                const progress = $('div.loadings').find('div[for="' + loading.for + '"]')
                 progress.progress('complete')
 
                 window.setTimeout(() => {
-                    if (progress.progress('is complete')) {
-                        this.loadings.splice(this.loadings.findIndex(e => loading.for === e.for), 1)
+                    if (progress.length > 0) {
+                        if (progress.progress('is complete')) {
+                            self.loadings.splice(self.loadings.findIndex(e => loading.for === e.for), 1)
+                        }
                     }
                 }, 500)
             },
