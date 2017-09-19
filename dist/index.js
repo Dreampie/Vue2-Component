@@ -1320,7 +1320,7 @@ exports = module.exports = __webpack_require__(0)(undefined);
 
 
 // module
-exports.push([module.i, "\nbody {\n  overflow-x: visible;\n}\n.back-top {\n  font-size: 30px;\n  position: fixed;\n  bottom: 70px;\n  right: 40px;\n  top: auto;\n  cursor: pointer;\n  z-index: 9999;\n  color: rgba(0,0,0,0.6);\n}\n.back-top:hover {\n  color: rgba(0,0,0,0.8);\n  transition: all 0.5s ease;\n}\n.back-top-enter-active,\n.back-top-leave-active {\n  transition: opacity 0.5s;\n}\n.back-top-enter,\n.back-top-leave-active {\n  opacity: 0;\n}\n", ""]);
+exports.push([module.i, "\n.back-top {\n  font-size: 30px;\n  position: fixed;\n  bottom: 70px;\n  right: 40px;\n  top: auto;\n  cursor: pointer;\n  z-index: 9999;\n  color: rgba(0,0,0,0.6);\n}\n.back-top:hover {\n  color: rgba(0,0,0,0.8);\n  transition: all 0.5s ease;\n}\n.back-top-enter-active,\n.back-top-leave-active {\n  transition: opacity 0.5s;\n}\n.back-top-enter,\n.back-top-leave-active {\n  opacity: 0;\n}\n", ""]);
 
 // exports
 
@@ -1376,7 +1376,7 @@ exports = module.exports = __webpack_require__(0)(undefined);
 
 
 // module
-exports.push([module.i, "\n.loadings {\n  overflow-x: hidden;\n}\n.progress {\n  width: 100%;\n  position: absolute !important;\n  border-radius: 0rem !important;\n  z-index: 9999;\n}\n", ""]);
+exports.push([module.i, "\n.loadings {\n  overflow-x: hidden;\n}\n.progress {\n  width: 100%;\n  position: fixed !important;\n  left: 0;\n  top: 0;\n  border-radius: 0rem !important;\n  z-index: 9999;\n}\n", ""]);
 
 // exports
 

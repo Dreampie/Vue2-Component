@@ -66,7 +66,9 @@
 
     .progress {
         width: 100%;
-        position: absolute !important;
+        position: fixed !important;
+        left: 0;
+        top: 0;
         border-radius: 0rem !important;
         z-index: 9999;
     }

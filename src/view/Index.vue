@@ -1,5 +1,5 @@
 <template>
-    <div style="height: 2000px">
+    <div style="height: 2000px;width: 4000px">
         <h1>
             {{welcome}}
         </h1>

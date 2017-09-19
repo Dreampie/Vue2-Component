@@ -31,10 +31,6 @@
 
 
 <style lang="stylus">
-    body {
-        overflow-x: visible;
-    }
-
     .back-top {
         font-size: 30px;
         position: fixed;

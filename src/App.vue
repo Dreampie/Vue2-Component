@@ -126,11 +126,12 @@
     }
 
     html {
-        overflow-y: scroll;
+        overflow-y: visible;
     }
 
     body {
         position: relative;
+        overflow-x: visible;
     }
 
     a {
