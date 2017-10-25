@@ -1152,6 +1152,9 @@ exports.default = {
         this.$nextTick(function () {
             $(_this3.$el).find('.item').popup();
         });
+    },
+    mounted: function mounted() {
+        this.$bus.$on('v-side-bar:reset', this.reset);
     }
 };
 

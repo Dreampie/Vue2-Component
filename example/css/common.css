@@ -502,10 +502,11 @@ html {
   height: 100%;
 }
 html {
-  overflow-y: scroll;
+  overflow-y: visible;
 }
 body {
   position: relative;
+  overflow-x: visible;
 }
 a {
   transition: color 0.2s;

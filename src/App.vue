@@ -72,6 +72,10 @@
                 }, 400, 'linear')
                 this.childMenus = childMenus
             },
+            resetMenu() {
+                this.$bus.$emit('v-side-bar:reset')
+                this.$bus.$emit('v-top-menu:reset')
+            },
             login() {
                 let rootUrl = window.localStorage.getItem("rootUrl")
                 this.$cookie.set("SAVED_URL", window.location.href, {domain: DomainSolver.getTopDomain(rootUrl)})
@@ -112,6 +116,7 @@
             this.$bus.$on('v-app:login', this.login)
             this.$bus.$on('v-app:logout', this.logout)
             this.$bus.$on('v-app-child-menu:init', this.initChildMenu)
+            this.$bus.$on('v-router:after', this.resetMenu)
         }
     }
 </script>
